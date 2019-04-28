@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vinson.dao.ArticleMapper">
+  <resultMap id="BaseResultMap" type="io.vinson.blog.domain.Article">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="author_id" property="authorId" jdbcType="INTEGER" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="publish_date" property="publishDate" jdbcType="TIMESTAMP" />
+    <result column="month" property="month" jdbcType="INTEGER" />
+    <result column="read_number" property="readNumber" jdbcType="BIGINT" />
+    <result column="comment_number" property="commentNumber" jdbcType="BIGINT" />
+    <result column="is_visible" property="isVisible" jdbcType="BIT" />
+    <result column="can_comment" property="canComment" jdbcType="BIT" />
+    <result column="has_password" property="hasPassword" jdbcType="BIT" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="has_attachment" property="hasAttachment" jdbcType="BIT" />
+    <result column="has_image" property="hasImage" jdbcType="BIT" />
+    <result column="has_video" property="hasVideo" jdbcType="BIT" />
+    <result column="cover" property="cover" jdbcType="VARCHAR" />
+    <result column="keywords" property="keywords" jdbcType="VARCHAR" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="on_top" property="onTop" jdbcType="BIT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="io.vinson.blog.domain.Article" extends="BaseResultMap">
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="markdown" property="markdown" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="BaseColumnList">
+    id, uuid, title, author_id, category_id, publish_date,
+    month, read_number, comment_number, is_visible, can_comment, has_password,
+    password, has_attachment, has_image, has_video, cover, keywords,
+    summary, description, on_top, create_date, update_date
+  </sql>
+  <sql id="BlobColumnList">
+    content, markdown
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+    select
+    <include refid="BaseColumnList" />
+    ,
+    <include refid="BlobColumnList" />
+    from articles
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from articles
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="io.vinson.blog.domain.Article" useGeneratedKeys="true" keyProperty="id">
+    insert into articles (
+      id, uuid, title,
+      author_id, category_id, publish_date,
+      month, read_number, comment_number,
+      is_visible, can_comment, has_password,
+      password, has_attachment, has_image,
+      has_video, cover, keywords,
+      summary, content, markdown,
+      description, on_top, create_date, update_date
+    ) values (
+      #{id,jdbcType=INTEGER}, #{uuid,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR},
+      #{authorId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, #{publishDate,jdbcType=TIMESTAMP},
+      #{month,jdbcType=INTEGER}, #{readNumber,jdbcType=BIGINT}, #{commentNumber,jdbcType=BIGINT},
+      #{isVisible,jdbcType=BIT}, #{canComment,jdbcType=BIT}, #{hasPassword,jdbcType=BIT},
+      #{password,jdbcType=VARCHAR}, #{hasAttachment,jdbcType=BIT}, #{hasImage,jdbcType=BIT},
+      #{hasVideo,jdbcType=BIT}, #{cover,jdbcType=VARCHAR}, #{keywords,jdbcType=VARCHAR},
+      #{summary,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}, #{markdown,jdbcType=LONGVARCHAR},
+      #{description,jdbcType=VARCHAR}, #{onTop,jdbcType=BIT},
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="io.vinson.blog.domain.Article">
+    insert into articles
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="authorId != null">
+        author_id,
+      </if>
+      <if test="categoryId != null">
+        category_id,
+      </if>
+      <if test="publishDate != null">
+        publish_date,
+      </if>
+      <if test="month != null">
+        month,
+      </if>
+      <if test="readNumber != null">
+        read_number,
+      </if>
+      <if test="commentNumber != null">
+        comment_number,
+      </if>
+      <if test="isVisible != null">
+        is_visible,
+      </if>
+      <if test="canComment != null">
+        can_comment,
+      </if>
+      <if test="hasPassword != null">
+        has_password,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="hasAttachment != null">
+        has_attachment,
+      </if>
+      <if test="hasImage != null">
+        has_image,
+      </if>
+      <if test="hasVideo != null">
+        has_video,
+      </if>
+      <if test="cover != null">
+        cover,
+      </if>
+      <if test="keywords != null">
+        keywords,
+      </if>
+      <if test="summary != null">
+        summary,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="markdown != null">
+        markdown,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="onTop != null">
+        on_top,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="createOperator != null">
+        create_operator,
+      </if>
+      <if test="updateOperator != null">
+        update_operator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="authorId != null">
+        #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="publishDate != null">
+        #{publishDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="month != null">
+        #{month,jdbcType=INTEGER},
+      </if>
+      <if test="readNumber != null">
+        #{readNumber,jdbcType=BIGINT},
+      </if>
+      <if test="commentNumber != null">
+        #{commentNumber,jdbcType=BIGINT},
+      </if>
+      <if test="isVisible != null">
+        #{isVisible,jdbcType=BIGINT},
+      </if>
+      <if test="canComment != null">
+        #{canComment,jdbcType=BIGINT},
+      </if>
+      <if test="hasPassword != null">
+        #{hasPassword,jdbcType=BIGINT},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="hasAttachment != null">
+        #{hasAttachment,jdbcType=BIGINT},
+      </if>
+      <if test="hasImage != null">
+        #{hasImage,jdbcType=BIGINT},
+      </if>
+      <if test="hasVideo != null">
+        #{hasVideo,jdbcType=BIGINT},
+      </if>
+      <if test="cover != null">
+        #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="keywords != null">
+        #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="markdown != null">
+        #{markdown,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="onTop != null">
+        #{onTop,jdbcType=BIT},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="io.vinson.blog.domain.Article">
+    update articles
+    <set>
+      <if test="uuid != null">
+        uuid = #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="authorId != null">
+        author_id = #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="publishDate != null">
+        publish_date = #{publishDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="month != null">
+        month = #{month,jdbcType=INTEGER},
+      </if>
+      <if test="readNumber != null">
+        read_number = #{readNumber,jdbcType=BIGINT},
+      </if>
+      <if test="commentNumber != null">
+        comment_number = #{commentNumber,jdbcType=BIGINT},
+      </if>
+      <if test="isVisible != null">
+        is_visible = #{isVisible,jdbcType=BIT},
+      </if>
+      <if test="canComment != null">
+        can_comment = #{canComment,jdbcType=BIT},
+      </if>
+      <if test="hasPassword != null">
+        has_password = #{hasPassword,jdbcType=BIT},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="hasAttachment != null">
+        has_attachment = #{hasAttachment,jdbcType=BIT},
+      </if>
+      <if test="hasImage != null">
+        has_image = #{hasImage,jdbcType=BIT},
+      </if>
+      <if test="hasVideo != null">
+        has_video = #{hasVideo,jdbcType=BIT},
+      </if>
+      <if test="cover != null">
+        cover = #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="keywords != null">
+        keywords = #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="markdown != null">
+        markdown = #{markdown,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="onTop != null">
+        on_top = #{onTop,jdbcType=BIT},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="io.vinson.blog.domain.Article">
+    update articles
+    set
+      uuid = #{uuid,jdbcType=LONGVARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      author_id = #{authorId,jdbcType=INTEGER},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      publish_date = #{publishDate,jdbcType=TIMESTAMP},
+      month = #{month,jdbcType=INTEGER},
+      read_number = #{readNumber,jdbcType=BIGINT},
+      comment_number = #{commentNumber,jdbcType=BIGINT},
+      is_visible = #{isVisible,jdbcType=BIT},
+      can_comment = #{canComment,jdbcType=BIT},
+      has_password = #{hasPassword,jdbcType=BIT},
+      password = #{password,jdbcType=VARCHAR},
+      has_attachment = #{hasAttachment,jdbcType=BIT},
+      has_image = #{hasImage,jdbcType=BIT},
+      has_video = #{hasVideo,jdbcType=BIT},
+      cover = #{cover,jdbcType=VARCHAR},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR},
+      markdown = #{markdown,jdbcType=LONGVARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      on_top = #{onTop,jdbcType=BIT},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="select" resultMap="BaseResultMap">
+    select
+    <if test="parameters != null">
+      ${parameters}
+    </if>
+    <if test="parameters == null">
+      *
+    </if>
+    from articles
+    <if test="condition != null">
+      where ${condition}
+    </if>
+    <if test="order != null and sort != null">
+      order by ${order} ${sort}
+    </if>
+    <if test="offset != -1 and limit != -1">
+      limit #{offset,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="count" resultType="long">
+    select count(
+    <if test="isDistinct == true">
+      distinct
+    </if>
+    <if test="parameters != null">
+      ${parameters}
+    </if>
+    <if test="parameters == null">
+      *
+    </if>
+    ) from articles
+    <if test="condition != null">
+      where ${condition}
+    </if>
+  </select>
+  <select id="sum" resultType="double">
+    select sum(
+    <if test="isDistinct == true">
+      distinct
+    </if>
+    ${parameter}) from articles
+    <if test="condition != null">
+      where ${condition}
+    </if>
+    <if test="order != null and sort != null">
+      order by ${order} ${sort}
+    </if>
+    <if test="offset != -1 and limit != -1">
+      limit #{offset,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="find" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+    select ${parameters} from articles where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <resultMap id="ArticleForBlogPOJO" type="com.vinson.pojo.ArticleForBlogPOJO">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="author_id" property="authorId" jdbcType="INTEGER" />
+    <result column="author_name" property="authorName" jdbcType="VARCHAR" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
+    <result column="publish_date" property="publishDate" jdbcType="TIMESTAMP" />
+    <result column="read_number" property="readNumber" jdbcType="BIGINT" />
+    <result column="comment_number" property="commentNumber" jdbcType="BIGINT" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="loadForBlog" resultMap="ArticleForBlogPOJO">
+    select
+      a.id, a.uuid, a.title, a.author_id, u.nickname author_name, a.category_id, c.category_name, a.publish_date, a.read_number, a.comment_number, a.summary, a.on_top
+    from
+      articles a left join users u on a.author_id = u.id left join categories c on a.category_id = c.id
+    where
+      a.is_visible = 1 and u.is_active = 1 and c.is_visible = 1 
+      <if test="categoryId != 0">
+      and a.category_id = #{categoryId, jdbcType=INTEGER}
+      </if>
+      <if test="keywords != null">
+      and (a.content like #{keywords, jdbcType=VARCHAR} OR a.title like #{keywords, jdbcType=VARCHAR} OR a.keywords like #{keywords, jdbcType=VARCHAR})
+      </if>
+    order by
+      a.on_top desc, a.publish_date desc, a.read_number desc
+    limit #{offset,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
+  </select>
+  <select id="countForBlog" resultType="long">
+    select count(*) from articles a left join users u on a.author_id = u.id left join categories c on a.category_id = c.id where a.is_visible = 1 and u.is_active = 1 and c.is_visible = 1 
+      <if test="category != 0">
+      and a.category_id = #{category, jdbcType=INTEGER}
+      </if>
+      <if test="keywords != null">
+      and (a.content like #{keywords, jdbcType=VARCHAR} OR a.title like #{keywords, jdbcType=VARCHAR} OR a.keywords like #{keywords, jdbcType=VARCHAR})
+      </if>
+  </select>
+  <resultMap id="ArticleForArticlePOJO" type="com.vinson.pojo.ArticleForArticlePOJO">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="author_id" property="authorId" jdbcType="INTEGER" />
+    <result column="author_name" property="authorName" jdbcType="VARCHAR" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
+    <result column="publish_date" property="publishDate" jdbcType="TIMESTAMP" />
+    <result column="read_number" property="readNumber" jdbcType="BIGINT" />
+    <result column="comment_number" property="commentNumber" jdbcType="BIGINT" />
+    <result column="is_visible" property="isVisible" jdbcType="BIT" />
+    <result column="can_comment" property="canComment" jdbcType="BIT" />
+    <result column="has_password" property="hasPassword" jdbcType="BIT" />
+    <result column="has_attachment" property="hasAttachment" jdbcType="BIT" />
+    <result column="has_image" property="hasImage" jdbcType="BIT" />
+    <result column="has_video" property="hasVideo" jdbcType="BIT" />
+    <result column="cover" property="cover" jdbcType="VARCHAR" />
+    <result column="keywords" property="keywords" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="on_top" property="onTop" jdbcType="BIT" />
+  </resultMap>
+  <select id="findByUuidForArticle" resultMap="ArticleForArticlePOJO">
+    select
+      a.id, a.uuid, a.title, a.author_id, u.nickname author_name, a.category_id, c.category_name, a.publish_date, a.read_number, a.comment_number, a.is_visible, a.can_comment, a.has_password, a.has_attachment, a.has_image, a.has_video, a.cover, a.keywords, a.description, a.content, a.on_top
+    from
+      articles a left join users u on a.author_id = u.id left join categories c on a.category_id = c.id
+    where
+      a.uuid = #{uuid,jdbcType=VARCHAR} and a.is_visible = 1 and a.has_password = 0 and u.is_active = 1 and c.is_visible = 1
+  </select>
+  <select id="loadForMenu" resultMap="BaseResultMap">
+    select
+      a.id, a.uuid, a.title
+    from
+      articles a left join users u on a.author_id = u.id left join categories c on a.category_id = c.id
+    where
+      a.is_visible = 1 and u.is_active = 1 and c.is_visible = 1
+    order by
+      id desc
+    <if test="limit != -1">
+      limit #{limit,jdbcType=INTEGER}
+    </if>
+  </select>
+  <resultMap id="ArticleForRssPOJO" type="com.vinson.pojo.ArticleForRssPOJO">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="author_id" property="authorId" jdbcType="INTEGER" />
+    <result column="author_name" property="authorName" jdbcType="VARCHAR" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
+    <result column="publish_date" property="publishDate" jdbcType="TIMESTAMP" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <select id="loadForRss" resultMap="ArticleForRssPOJO">
+    select
+      a.id, a.uuid, a.title, a.author_id, u.nickname author_name, a.category_id, c.category_name, a.publish_date, a.summary, a.content
+    from
+      articles a left join categories c on a.category_id = c.id left join users u on a.author_id = u.id
+    where
+      a.is_visible = 1 and c.is_visible = 1 and u.is_active = 1
+    order by
+      id desc
+    <if test="limit != -1">
+      limit #{limit,jdbcType=INTEGER}
+    </if>
+  </select>
+  <resultMap id="ArticleForHotPOJO" type="io.vinson.pojo.ArticleForHotPOJO">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="loadForHot" resultMap="ArticleForHotPOJO">
+  	select id, uuid, title
+  	from articles
+  	where is_visible = 1
+  	order by
+  	  read_number desc
+    <if test="limit != -1">
+    	limit #{limit,jdbcType=INTEGER}
+    </if>
+  </select>
+</mapper>

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vinson.dao.MessageMapper">
+  <resultMap id="BaseResultMap" type="io.vinson.blog.domain.Message">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="is_read" property="isRead" jdbcType="BIT" />
+    <result column="is_visible" property="isVisible" jdbcType="BIT" />
+    <result column="send_date" property="sendDate" jdbcType="TIMESTAMP" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="BaseColumnList">
+    id, user_id, content, type, is_read, is_visible, send_date, nickname, email,
+    create_date, update_date, create_operator, update_operator
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+      <include refid="BaseColumnList" />
+    from messages
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from messages
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="io.vinson.blog.domain.Message" useGeneratedKeys="true" keyProperty="id">
+    insert into messages (
+      id, user_id, content, type, is_read, is_visible, send_date, nickname, email,
+      create_date, update_date, create_operator, update_operator
+    ) values (
+      #{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR},
+      #{type,jdbcType=INTEGER},#{isRead,jdbcType=BIT}, #{isVisible,jdbcType=BIT}, #{sendDate,jdbcType=TIMESTAMP},
+      #{nickname,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="io.vinson.blog.domain.Message">
+    insert into messages
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="isRead != null">
+        is_read,
+      </if>
+      <if test="isVisible != null">
+        is_visible,
+      </if>
+      <if test="sendDate != null">
+        send_date,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="isRead != null">
+        #{isRead,jdbcType=BIT},
+      </if>
+      <if test="sendDate != null">
+        #{sendDate,jdbcType=TIMESTAMP},
+      </if>
+	  <if test="isVisible != null">
+        #{isVisible,jdbcType=BIT},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="io.vinson.blog.domain.Message">
+    update messages
+    <set>
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="isRead != null">
+        is_read = #{isRead,jdbcType=BIT},
+      </if>
+      <if test="sendDate != null">
+        send_date = #{sendDate,jdbcType=TIMESTAMP},
+      </if>
+	  <if test="isVisible != null">
+        is_visible = #{isVisible,jdbcType=BIT},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="io.vinson.blog.domain.Message">
+    update messages
+    set
+      user_id = #{userId,jdbcType=INTEGER},
+      is_read = #{isRead,jdbcType=BIT},
+      send_date = #{sendDate,jdbcType=TIMESTAMP},
+      is_visible = #{isVisible,jdbcType=BIT},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="select" resultMap="BaseResultMap">
+    select
+    <if test="parameters != null">
+      ${parameters}
+    </if>
+    <if test="parameters == null">
+      *
+    </if>
+    from messages
+    <if test="condition != null">
+      where ${condition}
+    </if>
+    <if test="order != null and sort != null">
+      order by ${order} ${sort}
+    </if>
+    <if test="offset != -1 and limit != -1">
+      limit #{offset,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="count" resultType="long">
+    select count(
+    <if test="isDistinct == true">
+      distinct
+    </if>
+    <if test="parameters != null">
+      ${parameters}
+    </if>
+    <if test="parameters == null">
+      *
+    </if>
+    ) from messages
+    <if test="condition != null">
+      where ${condition}
+    </if>
+  </select>
+  <select id="sum" resultType="double">
+    select sum(
+    <if test="isDistinct == true">
+      distinct
+    </if>
+    ${parameter}) from messages
+    <if test="condition != null">
+      where ${condition}
+    </if>
+    <if test="order != null and sort != null">
+      order by ${order} ${sort}
+    </if>
+    <if test="offset != -1 and limit != -1">
+      limit #{offset,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="find" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select ${parameters} from messages where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <resultMap id="MessageForPortalPOJO" type="com.vinson.pojo.MessageForPortalPOJO">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="send_date" property="sendDate" jdbcType="TIMESTAMP" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="loadForPortal" resultMap="MessageForPortalPOJO">
+    select
+      a.id, a.nickname, a.send_date, a.content
+    from
+      messages a
+    where
+      a.is_visible = 1
+    order by
+      a.send_date desc
+    limit #{offset,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
+  </select>
+</mapper>
