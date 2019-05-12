@@ -1,7 +1,9 @@
 package io.vinson.blog.dao;
 
 import io.vinson.blog.domain.Message;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface MessageMapper {
 	int deleteByPrimaryKey(Integer id);
 
