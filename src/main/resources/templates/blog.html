@@ -10,15 +10,9 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 
 	    <!-- css -->
-	    <link href="/admin/plugins/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-		<link href="/admin/plugins/simplemde/1.11.2/simplemde.min.css" rel="stylesheet">
-		<link href="/admin/plugins/highlight.js/9.7.0/styles/github.css" rel="stylesheet">
-	    
-	    
-		<!-- <link rel="stylesheet" href="css/ionicons.min.css">
-		<link rel="stylesheet" href="css/pace.css">
-	    <link rel="stylesheet" href="css/custom.css">
-	    <link rel="stylesheet" href="admin/css/style.patch.css"> -->
+		<link rel="stylesheet" href="/css/ionicons.min.css">
+		<link rel="stylesheet" href="/plugins/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/css/v.css">
 		<link rel="stylesheet" href="/css/main.css">
 
 		<script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.min.js"></script>
@@ -89,7 +83,7 @@
 		                </div> --%>
 		                <c:if test="${totalPage > 1}">
 						<div class="grid-paging u-paging mt20">
-							<a class="prev" href="blog.do?category=${curCategory }&month=&search=&keyword=&page=1">&laquo;</a>
+							<a class="prev" href="blog?category=${curCategory}&month=&search=&keyword=&page=1">&laquo;</a>
 							<!-- <input name="page" type="text" /> -->
 							<c:forEach var="curPage" begin="${startPage}" end="${endPage}">
 							<c:if test="${curPage == page}"><a class="current">${curPage}</a></c:if>
@@ -173,7 +167,6 @@
 		$("#category"+category).addClass('current');
 	})
 
-    
 </script>
 
 

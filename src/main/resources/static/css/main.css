@@ -314,8 +314,6 @@ input[type="text"], input[type="email"], input[type="password"], input[type="url
 
 
 
-
-
 /***************    content ************/
 .clear-fixed:after, .grid-container-fixed .grid-container-inner:after, .grid-container-fixed:after {
     content: ".";
@@ -693,7 +691,6 @@ input[type="text"], input[type="email"], input[type="password"], input[type="url
         width: 100%;
     }
 }
-
 
 
 .copyright {

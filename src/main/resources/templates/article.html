@@ -6,19 +6,13 @@
 		<meta charset="UTF-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <!-- css -->
-	    <link href="/admin/plugins/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-		<link href="/admin/plugins/simplemde/1.11.2/simplemde.min.css" rel="stylesheet">
-		<link href="/admin/plugins/highlight.js/9.7.0/styles/github.css" rel="stylesheet">
 	    <link href="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet">
 	    
 		<link rel="stylesheet" href="/css/ionicons.min.css">
-		<link rel="stylesheet" href="plugins/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="/css/pace.css">
-	    <!-- <link rel="stylesheet" href="css/custom.css"> -->
-	    <link rel="stylesheet" href="/css/style.patch.css">
-		<link rel="stylesheet" href="/css/main.css">
+		<link rel="stylesheet" href="/plugins/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="/css/github-markdown.min.css">
 		<link rel="stylesheet" href="/css/v.css">
+		<link rel="stylesheet" href="/css/main.css">
 		<link rel="stylesheet" href="/css/article.css">
 	    
 	    <style>
@@ -84,20 +78,20 @@
 		            	<div class="comments-body">
 		            		<h3 class="comment-title">评论<a style="font-weight:200;">${commentCount }</a></h3> 
 		                	<form class="comment-form">
-		                		<fieldset class="comment-form__group">
+		                		<fieldset class="comment-form-group">
 		                			<div class="v-input-group">
 		                				<label class="v-input-group--cell v-button readonly">昵称</label> 
-		                				<input type="text" id="nickname" placeholder="个性昵称" spellcheck="false" maxlength="20" class="v-input-group--cell comments-field__short v-input js-comment-form__nick">
+		                				<input type="text" id="nickname" placeholder="个性昵称" spellcheck="false" maxlength="20" class="v-input-group--cell comments-field-short v-input js-comment-form-nick">
 		                			</div>
 		                		</fieldset>
-                				<fieldset class="comment-form__group">
+                				<fieldset class="comment-form-group">
                 					<div class="v-input-group">
                 					<label class="v-input-group--cell v-button readonly">邮箱</label> 
-                					<input type="email" id="email" placeholder="电子邮箱" spellcheck="false" maxlength="50" class="v-input-group--cell comments-field__short v-input js-comment-form__email"></div>
+                					<input type="email" id="email" placeholder="电子邮箱" spellcheck="false" maxlength="50" class="v-input-group--cell comments-field-short v-input js-comment-form-email"></div>
                 				</fieldset> 
-                				<fieldset class="comment-form__group">
-                					<div class="comment-form__content">
-                						<textarea rows="3" id="commentContent" placeholder="留点空白给你说~" spellcheck="false" class="v-input js-comment-form__contents"></textarea> 
+                				<fieldset class="comment-form-group">
+                					<div class="comment-form-content">
+                						<textarea rows="3" id="commentContent" placeholder="留点空白给你说~" spellcheck="false" class="v-input js-comment-form-contents"></textarea> 
                 						<input type="hidden" id="articleId" value="${article.id }" />
 	                					<div class="comment_release_success" style="display: none;">
 		                					<span>
@@ -105,7 +99,7 @@
 		                						<i>发布成功!</i>
 		                					</span>
 	                					</div> 
-	                					<div class="comment-form__footer">
+	                					<div class="comment-form-footer">
 	                						<div class="emoji-dropdown">
 	                						<a class="emoji-toggle"><i class="icon-emoji"></i></a> 
 	                						<div class="emoji-wrapper" style="display: none;">
@@ -123,25 +117,25 @@
 	                		<div class="comments-list">
 	                			<c:forEach var="comment" items="${comments}" varStatus="status">
 	                			<div class="comment-item">
-	                				<figure class="comment-item__avatar">
+	                				<figure class="comment-item-avatar">
 	                					<img src="img/default.gif" alt="${comment.nickname}">
 	                				</figure> 
-	                				<main class="comment-item__body" data-comment-id="${comment.id }">
-	                					<h6 class="comment-item__info mo-clearfix">
+	                				<main class="comment-item-body" data-comment-id="${comment.id }">
+	                					<h6 class="comment-item-info mo-clearfix">
 		                					<strong class="mo-text-negative">${comment.nickname}</strong> 
 		                					<time><fmt:formatDate value="${comment.sendDate}" pattern="yyyy-MM-dd HH:mm:ss"/></time>
 	                					</h6> 
-	                					<div class="comment-item__content">
+	                					<div class="comment-item-content">
 	                						<div class="v-inline">${comment.content}</div> 
-	                						<a class="comment-item__reply_button" onclick="reply(this)">[回复]</a>
+	                						<a class="comment-item-reply_button" onclick="reply(this)">[回复]</a>
 	                					</div>
 	                					<c:if test="${comment.replyId != null}">
-	                					<div class="comment-item__reply">
-	                						<h6 class="comment-item__info mo-clearfix">
+	                					<div class="comment-item-reply">
+	                						<h6 class="comment-item-info mo-clearfix">
 		                						<strong class="mo-text-negative">${comment.replyNickname}</strong> 
 		                						<time><fmt:formatDate value="${comment.replySendDate}" pattern="yyyy-MM-dd HH:mm:ss"/></time>
 	                						</h6> 
-	                						<div class="comment-item__content">${comment.replyContent}</div>
+	                						<div class="comment-item-content">${comment.replyContent}</div>
 	                					</div>
 	                					<!---->
 										</c:if>
@@ -204,13 +198,10 @@
 		</footer>
 	</body>
 	<!-- js -->
-    <script src="js/jquery-2.1.3.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/pace.min.js"></script>
-    <script src="js/modernizr.custom.js"></script>
-	
-	<script src="js/header.js"></script>
-	<script src="js/script.js"></script>
+	<script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.min.js"></script>
+
+	<script src="/js/header.js"></script>
+	<script src="/js/script.js"></script>
 	<script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
 	
 </html>
